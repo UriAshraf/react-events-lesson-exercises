@@ -13,6 +13,15 @@ class SpotCheck3 extends Component {
     }
 
     //write a likeQuote method that increase the likes of the first quote 
+    likeQuote = () => {
+      let currentQuotes = [...this.state.quotes]
+      currentQuotes[0].likes++
+      this.setState({
+          quotes: currentQuotes
+        })
+        // alert(this.state.quotes[0].likes);
+      
+    }
 
     render() {
         return (
@@ -20,7 +29,7 @@ class SpotCheck3 extends Component {
                 {this.state.quotes.map(q => {
                     return (
                         <div key={q.id} className="quotes">
-                            <sup>{q.likes}</sup>
+                            <sup>{q.likes} likes</sup>
                             <span onClick={this.likeQuote}>+</span>
                             <span>{q.text}</span>
                         </div>
@@ -32,3 +41,5 @@ class SpotCheck3 extends Component {
 }
 
 export default SpotCheck3;
+
+

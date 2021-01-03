@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import Conversation from './Conversation';
+import List from './List';
 
 class Exercise2 extends Component {
   constructor() {
@@ -7,14 +9,16 @@ class Exercise2 extends Component {
       displayConversation: null,
       conversations: [
         {
-          with: "Laura", convo: [
+          with: "Laura", 
+          convo: [
             { text: "Hi", sender: "self" },
             { text: "You there?", sender: "self" },
             { text: "Yeah, hi, what's up?", sender: "other" }
           ]
         },
         {
-          with: "Dad", convo: [
+          with: "Dad",
+           convo: [
             { text: "Have you finished your school work yet?", sender: "other" },
             { text: "Yes.", sender: "self" },
             { text: "What do you mean, yes?", sender: "other" },
@@ -22,7 +26,8 @@ class Exercise2 extends Component {
           ]
         },
         {
-          with: "Shoobert", convo: [
+          with: "Shoobert",
+           convo: [
             { text: "Shoobert!!!", sender: "self" },
             { text: "Dude!!!!!!!!", sender: "other" },
             { text: "Shooooooooo BERT!", sender: "self" },
@@ -32,13 +37,27 @@ class Exercise2 extends Component {
         }
       ]
     }
+    
+  }
+
+  displayConvo = name => {
+    this.setState({displayConversation: name})
+  }
+
+  resetConvo = () => {
+    this.setState({displayConversation: null})
   }
 
   render() {
+    const {displayConversation, conversations} = this.state
     return (
       <div >
-        {/* If displayConverastion is null - 
-    App should render List, otherwise it should display Conversation */}
+        {displayConversation ?
+        <Conversation 
+        convo={conversations.find(c => c.with === displayConversation).convo} 
+        sender={displayConversation}
+        resetConvo={this.resetConvo}/> : 
+        <List contacts={this.state.conversations.map(c => c.with)} displayConvo={this.displayConvo}/>}
       </div>
     );
   }
